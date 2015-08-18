@@ -4,7 +4,7 @@ This is a Haxe to javaScript 'transpiling' boilerplate with a grunt-haxe and goo
 
 Use ```grunt watch``` and it compiles and executes after save some file in the haxe ```source directory```. Other packages (like puremvc for example) can be placed in the ```lib``` directory. 
 
-All compiled code is stored in the ```build``` folder, and it has the name of the ```name```  property in the root's package.json file. for exampele:
+All compiled code is stored in the ```build``` folder, and it has the name of the ```name```  property in the root's package.json file. for example:
 ```build/somemodule.js``` (haxe) and ```build/somemodule-compiled.js``` (haxe+closurecompiler).
 
 ## Dependencies:
