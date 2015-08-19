@@ -8,8 +8,8 @@ module.exports = function(grunt) {
 				classpath: ['<%= pkg.haxe_source_files %>', '<%= pkg.haxe_lib %>'],
 				/*specify folder/s where source code is located*/
 				output: '<%= pkg.haxe_build %><%= pkg.name %>.js',
-				/*compile to this file*/
-				misc: ["-dce no "] /* override console.log, with trace !!! */
+				/*compile to this file, see http://haxe.org/manual/lf-condition-compilation-flags.html */
+				misc: ["-dce no -D nodejs -D js-es5"] 
 			},
 			production: {
 				main: 'Main',
@@ -17,28 +17,18 @@ module.exports = function(grunt) {
 				classpath: ['<%= pkg.haxe_source_files %>', '<%= pkg.haxe_lib %>'],
 				/*specify folder/s where source code is located*/
 				output: '<%= pkg.haxe_build %><%= pkg.name %>.js',
-				/*compile to this file*/
-				misc: ["-dce no -D no-traces"]  /* no-trace does not override console.log */
+				/*compile to this file, see http://haxe.org/manual/lf-condition-compilation-flags.html */
+				misc: ["-dce no -D nodejs -D js-es5 -D no-traces"]
 			},
 			test: {
 				main: 'MyTest',
 				/*name of the startup class*/
 				classpath: ['<%= pkg.haxe_test_files %>', '<%= pkg.haxe_lib %>'],
 				/*specify folder/s where source code is located*/
-				output: '<%= pkg.haxe_build %><%= pkg.name %>-test.js',
-				/*compile to this file*/
-				misc: ["-dce full -D js-flatten "] //-D shallow-expose 
+				output: '<%= pkg.haxe_build_test %>/test.js',
+				/*compile to this file, see http://haxe.org/manual/lf-condition-compilation-flags.html */
+				misc: ["-dce no -D nodejs -D js-flatten -D js-es5"] 
 			}
-		},
-		execute: {
-			run: {
-				// execute javascript files in a node child_process 
-				src: ['node <%= pkg.haxe_build %>index-test.js']
-			},
-			test: {
-				// execute javascript files in a node child_process 
-				src: ['<%= pkg.haxe_build %><%= pkg.name %>-test.js']
-			},
 		},
 		watch: {
 			dev: {
@@ -60,6 +50,14 @@ module.exports = function(grunt) {
 			],
 		},
 		exec: {
+			run: {
+				stdout: true,
+				command: 'node index.js'
+			},
+			test: {
+				stdout: true,
+				command: 'node test/test.js'
+			},
 			cc: {
 				stdout: true,
 				command: 'java -jar node_modules/closurecompiler/compiler/compiler.jar --js <%= pkg.haxe_build %><%= pkg.name %>.js --js_output_file <%= pkg.haxe_build %><%= pkg.name %>-compiled.js'
@@ -78,16 +76,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-haxe');
-	grunt.loadNpmTasks('grunt-execute');
 
 
 	/* Development */
 	grunt.registerTask('compile',	['clean:exports', 'haxe:develop']);
-	grunt.registerTask('test', 		['clean:exports', 'haxe:develop', 	'haxe:test', 'execute:test']);
-	grunt.registerTask('default',	['clean:exports', 'haxe:develop', 	'execute:run']);
+	grunt.registerTask('test', 		['clean:exports', 'haxe:develop', 	'haxe:test', 'exec:test']);
+	grunt.registerTask('default',	['clean:exports', 'haxe:develop', 	'exec:run']);
 
 	/* Production */
-	grunt.registerTask('deploy',	['clean:exports', 'haxe:production', 'execute:run']);
-	grunt.registerTask('deploy-cc', ['clean:exports', 'haxe:production', 'exec:cc', 'execute:run']);
+	grunt.registerTask('deploy',	['clean:exports', 'haxe:production', 'exec:run']);
+	grunt.registerTask('deploy-cc', ['clean:exports', 'haxe:production', 'exec:cc', 'exec:run']);
 
 };

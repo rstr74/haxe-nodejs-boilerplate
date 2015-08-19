@@ -1,9 +1,11 @@
 {
   "name": "somemodule",
+  "description": "This is a Haxe to javaScript 'transpiling' boilerplate with a grunt-haxe and google closurecompiler setup. Use this for javascript development projects that run into the limitations or weirdness of the javascript language. Work around that with the great OOP features that HAXE provide. (interface warnings, type checking, extending etc).",
   "version": "0.0.1",
-  "main":"build/index.js",
-  "scripts":{
-    "start":"node build/index"
+  "main": "build/somemodule.js",
+  "scripts": {
+    "start": "node index",
+    "test": "node test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -14,12 +16,12 @@
     "grunt-contrib-yuidoc": "~0.4.0",
     "grunt-contrib-watch": "~0.4.4",
     "grunt-exec": "~0.4.3",
-    "grunt-execute": "~0.2.2",
     "closurecompiler": "~1.5.2"
   },
   "haxe_source_files": "source/",
-  "haxe_test_files": "test/",
+  "haxe_test_files": "test/source/",
+  "haxe_build_test": "test",
   "haxe_lib": "lib/",
   "haxe_assets": "assets/",
   "haxe_build": "build/"
-}
+ }
