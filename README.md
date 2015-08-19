@@ -37,7 +37,13 @@ Then, to install all dependencies with npm, type:
 npm install
 ```
 
-For now there is a minimal setup in PureMVC for HAXE; Please note that all haxe classes use the ```@:expose``` compiler directive.
+Or add it as a module:
+```
+npm install rstr74/haxe-nodejs-boilerplate
+```
+(!!!! For both install options rename the module dir and name property in package.json !!!!)
+
+## Grunt options
 
 Alter the sourcecode in the 'source' dir and then use the grunt-cli options:
 ```
@@ -48,6 +54,7 @@ grunt compile
 grunt deploy
 ```
 
+For now there is a minimal setup in PureMVC for HAXE; Please note that all haxe classes use the ```@:expose``` compiler directive.
 
 ### Project structure
 
