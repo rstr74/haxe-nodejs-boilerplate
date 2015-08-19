@@ -2,7 +2,7 @@
   "name": "somemodule",
   "description": "This is a Haxe to javaScript 'transpiling' boilerplate with a grunt-haxe and google closurecompiler setup. Use this for javascript development projects that run into the limitations or weirdness of the javascript language. Work around that with the great OOP features that HAXE provide. (interface warnings, type checking, extending etc).",
   "version": "0.0.1",
-  "main": "build/somemodule.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index",
     "test": "node test"
